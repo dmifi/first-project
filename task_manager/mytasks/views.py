@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from django.views import View
+from django.views.generic import ListView
 from mytasks.models import Task, Comment
 from mytasks.forms import AddTaskForm, TaskForm
 
@@ -8,27 +10,27 @@ def index(request):
     return HttpResponse("Первый")
 
 
-def tasks_list(request):
-    all_task = Task.objects.all()
-    return render(
-        request,
-        'tasks/list.html',
-        {
-            'tasks': all_task,
-        }
-    )
+class TaskListView(ListView):
+    queryset = Task.objects.all()
+    context_object_name = "tasks"
+    template_name = 'tasks/list.html'
 
 
-def task_creator(request):
-    if request.method == "POST":
+class TaskCreateView(View):
+    def my_render(self, request, form):
+        return render(request, "tasks/task_creator.html", {"form": form})
+
+    def post(self, request, *args, **kwargs):
         form = TaskForm(request.POST)
         if form.is_valid():
             form.save()
             return redirect("/mytasks/list")
-    else:
-        form = TaskForm()
 
-    return render(request, "tasks/task_creator.html", {"form": form})
+        return self.my_render(request, form)
+
+    def get(self, request, *args, **kwargs):
+        form = TaskForm(request.POST)
+        return self.my_render(request, form)
 
 
 def add_task(request):

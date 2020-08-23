@@ -12,8 +12,12 @@
 
     <ul id="tasks-list">
         {% for task in tasks %}
+        <br>
         <li>
-            {{ task }}
+            {{ task.task_title }} <br>
+            {{ task.task_text }} <br>
+            {{ task.created }} <br>
+            {{ task.updated }}
         </li>
         {% endfor %}
     </ul>
