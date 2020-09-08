@@ -1,9 +1,11 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from django.urls import reverse
 from django.views import View
 from django.views.generic import ListView
 from mytasks.models import Task, Comment
 from mytasks.forms import AddTaskForm, TaskForm
+from django.views.generic.detail import DetailView
 
 
 def index(request):
@@ -24,7 +26,7 @@ class TaskCreateView(View):
         form = TaskForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect("/mytasks/list")
+            return reverse("tasks:list")
 
         return self.my_render(request, form)
 
@@ -38,4 +40,15 @@ def add_task(request):
         title = request.POST["task_title"]
         t = Task(task_title=title)
         t.save()
-    return redirect("/mytasks/list/")
+    return reverse("tasks:list")
+
+
+def delete_task(request, uid):
+    t = Task.objects.get(id=uid)
+    t.delete()
+    return reverse("tasks:list")
+
+
+class TaskDetailView(DetailView):
+    model = Task
+    template_name = "tasks/detail.html"

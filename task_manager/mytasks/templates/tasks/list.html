@@ -14,7 +14,7 @@
         {% for task in tasks %}
         <br>
         <li>
-            {{ task.task_title }} <br>
+            <a href={% url "tasks:detail" task.id %}> {{ task.task_title }}</a> <br>
             {{ task.task_text }} <br>
             {{ task.created }} <br>
             {{ task.updated }}
