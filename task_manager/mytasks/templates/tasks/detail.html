@@ -9,7 +9,7 @@
         {{ object.task_text }}
         </li>
         <li>Создана: {{ object.created }}</li>
-        <li>Последнее изменение: {{ object.updated }}</li>
+        <li>Последнее изменение: {{ object.updated|date:"j F Y H:i"}}</li>
     </ul>
     <a href="{% url "tasks:list" %}">Назад к списку</a>
 {% endblock %}
