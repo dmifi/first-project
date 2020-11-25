@@ -6,8 +6,9 @@ from django.views.generic import ListView
 from mytasks.models import Task, Comment
 from mytasks.forms import AddTaskForm, TaskForm
 from django.views.generic.detail import DetailView
+from django.contrib.auth.decorators import login_required
 
-
+@login_required
 def index(request):
     return HttpResponse("Первый")
 
@@ -31,7 +32,7 @@ class TaskCreateView(View):
         return self.my_render(request, form)
 
     def get(self, request, *args, **kwargs):
-        form = TaskForm(request.POST)
+        form = TaskForm()
         return self.my_render(request, form)
 
 

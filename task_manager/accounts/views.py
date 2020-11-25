@@ -13,8 +13,8 @@ class LoginView(View):
             cd = form.cleaned_data
             user = authenticate(
                 request,
-                username = cd['username'],
-                password = cd['password']
+                username=cd['username'],
+                password=cd['password']
             )
             if user is None:
                 return HttpResponse('Неправильный логин и/или пароль')

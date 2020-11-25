@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %} Логин {% endblock %}
+
+{% block main_content %}
+        <h1>
+            Вход
+        </h1>
+        {% if form.error %}
+            <p> Ошибка: пароль или логин неправильныею Попробуйте снова </p>
+        {% else %}
+            <p>Введите лоигн/пароль </p>
+        {% endif %}
+
+        <form action="." method="post" class="login">
+            {{ form.as_p }}
+            {% csrf_token %}
+            <input type="hidden" name="text" value="{{ text }}" />
+            <button type="submit"> Войти </button>
+        </form>
+{% endblock %}
