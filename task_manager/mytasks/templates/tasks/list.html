@@ -15,10 +15,12 @@
         <br>
         <li>
             <a href={% url "tasks:detail" task.id %}> {{ task.task_title }}</a> <br>
+            <b>{{ task.owner }} </b> <br>
             {{ task.task_text }} <br>
             {{ task.created }} <br>
-            {{ task.updated }}
+            {{ task.updated }} <br>
         </li>
         {% endfor %}
+
     </ul>
 {% endblock %}

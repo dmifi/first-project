@@ -1,5 +1,5 @@
 from django import forms
-from mytasks.models import Task
+from mytasks.models import Task, Comment
 
 
 class AddTaskForm(forms.Form):
@@ -11,3 +11,10 @@ class TaskForm(forms.ModelForm):
     class Meta:
         model = Task
         fields = ('task_title', 'task_text', )
+
+#
+# class CommentForm(forms.ModelForm):
+#     class Meta:
+#         model = Comment
+#         fields = ('comment_to_task', 'comment_text', )
+#

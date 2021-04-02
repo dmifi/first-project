@@ -4,6 +4,7 @@
 {% block main_content %}
     <h1>Задача</h1>
     <p><b>Описание</b>: {{ object }}</p>
+    <p><b>Пользователь</b>: {{ object.owner }}</p>
     <ul>
         <li>
         {{ object.task_text }}
@@ -11,5 +12,12 @@
         <li>Создана: {{ object.created }}</li>
         <li>Последнее изменение: {{ object.updated|date:"j F Y H:i"}}</li>
     </ul>
+    {% for comment in comments %}
+    <p> Комментарий:</p>
+    <p> Автор: </p> {{ comment.comment_text }}
+    <p> Комментарий:</p>
+
+    {% endfor %}
+
     <a href="{% url "tasks:list" %}">Назад к списку</a>
 {% endblock %}
