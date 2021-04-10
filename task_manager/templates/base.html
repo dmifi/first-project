@@ -9,11 +9,12 @@
 
         <title> MyTasks |{% block title %}  {% endblock %} </title>
 
-        <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+        <link rel="stylesheet" href="{% static '/styles.css' %}">
 
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
-
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
         {% block extra_head %}     {% endblock %}
 
     </head>
@@ -25,18 +26,35 @@
                     {% block side_bar %}
                         {% if user.is_authenticated %}
                         <p> {{ user.first_name }} </p>
-                        <img src="{{ user.profile.avatar.url }}" class="img-fluid">
+                        {% if user.profile.avatar %}
+                            <img src="{{ user.profile.avatar.url }}" class="img-fluid">
+                        {% else %}
+                            <img src="/media/user_avatars/default.png" class="img-fluid">
+                    {% endif %}
 
                         <ul>
-                            <li><a href="#">профиль</a> </li>
-                            <li><a href="{% url 'tasks:task_creator' %}">добавить задачу</a></li>
-                            <li><a href="{% url 'tasks:list' %}">задачи</a></li>
-                            <li><a href="{% url 'logout' %}">выйти</a></li>
+                            <li><a href="#">Профиль</a> </li>
+                            <li><a href="{% url 'edit' %}">Редактировать профиль</a></li>
+                            <li><a href="{% url 'tasks:task_creator' %}">Добавить задачу</a></li>
+                            <li><a href="{% url 'tasks:list' %}">Задачи</a></li>
+                            <li><a href="{% url 'logout' %}">Выйти</a></li>
                         </ul>
                         {% endif %}
                     {% endblock %}
                 </div>
                 <div class="mail_contenet col-8">
+                    {% if messages %}
+                    <div class="row">
+                        <ul class="messages">
+                            {% for message in messages %}
+                            <p class="alert alert-{{ message.tags }} alert-dismissable">
+                            <a href="#" class="close" data-dismiss="alert">x</a>
+                            {{ message }}
+                            </p>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {% endif %}
                     {% block main_content %}
                     {% endblock %}
                 </div>

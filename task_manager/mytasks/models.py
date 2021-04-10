@@ -16,14 +16,28 @@ class UserUs(models.Model):
 
 
 class Task(models.Model):
+    PRIORITY_HIGH = 1
+    PRIORITY_MEDIUM = 2
+    PRIORITY_LOW = 3
+
+    PRIORITY_CHOICES = [
+        (PRIORITY_HIGH, "Высокий приоритет"),
+        (PRIORITY_MEDIUM, "Средний приоритет"),
+        (PRIORITY_LOW, "Низкий приоритет"),
+    ]
+
     task_title = models.CharField('Название задачи', max_length=100)
     task_text = models.TextField('Текст задачи')
+    is_completed = models.BooleanField("Выполнено", default=False)
     created = models.DateTimeField('Дата постановки задачи', auto_now_add=True)
     updated = models.DateTimeField('Обновлено', auto_now=True)
     owner = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
         related_name='tasks')
+    priority = models.IntegerField(
+        "Приоритет", choices=PRIORITY_CHOICES, default=PRIORITY_MEDIUM
+    )
 
     def __str__(self):
         return self.task_title

@@ -9,8 +9,9 @@
         <li>
         {{ object.task_text }}
         </li>
-        <li>Создана: {{ object.created }}</li>
-        <li>Последнее изменение: {{ object.updated|date:"j F Y H:i"}}</li>
+        <li><i class="far fa-calendar-alt">Создана: {{ object.created|date:"j F Y H:i" }}</li>
+        <li><i class="far fa-clock">Последнее изменение: {{ object.updated|date:"j F Y H:i"}}</li>
+        <li> <a href="{% url 'tasks:edit' pk=object.pk %}">Редактировать</a></li>
     </ul>
     {% for comment in comments %}
     <p> Комментарий:</p>
@@ -19,5 +20,5 @@
 
     {% endfor %}
 
-    <a href="{% url "tasks:list" %}">Назад к списку</a>
+    <a href="{% url 'tasks:list' %}">Назад к списку</a>
 {% endblock %}

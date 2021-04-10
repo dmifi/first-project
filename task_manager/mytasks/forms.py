@@ -10,7 +10,19 @@ class AddTaskForm(forms.Form):
 class TaskForm(forms.ModelForm):
     class Meta:
         model = Task
-        fields = ('task_title', 'task_text', )
+        fields = ('task_title', 'task_text', "priority",)
+        labels = {
+            "task_title": "Название задачи",
+            "task_text": "Текст задачи",
+            "priority": ""
+        }
+
+
+class TaskExportForm(forms.Form):
+    prio_high = forms.BooleanField(label="Высокий приоритет", initial=True, required=False)
+    prio_med = forms.BooleanField(label="Средний приоритет", initial=True, required=False)
+    prio_low = forms.BooleanField(label="Низкий приоритет", initial=True, required=False)
+
 
 #
 # class CommentForm(forms.ModelForm):

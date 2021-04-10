@@ -3,7 +3,7 @@ form.tasks-create {
  outline: 0;
  height: 36px;
  margin-top: 5%;
- border: 3px solid #3b3b3b;
+ border: none;
 }
 
 
@@ -17,3 +17,13 @@ form.tasks-create > input[type="text"] {
  padding-left: 10px;
 }
 
+.add {
+outline: 0;
+width: 34%;
+height: 36px;
+color: #fff;
+font-size: 18px;
+border: none;
+cursor: pointer;
+background-color: #3b3b3b;
+}

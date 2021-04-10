@@ -11,16 +11,30 @@
     </h1>
 
     <ul id="tasks-list">
-        {% for task in tasks %}
-        <br>
+    {% for task in tasks %}
+        {% if task.is_completed %}
+        <li class="completed">
+            <input class="checkbox" data-uid={{ task.id }} type="checkbox" disabled="disabled" checked="checked"/>
+        {% else %}
         <li>
+            <input class="checkbox" data-uid={{ task.id }} type="checkbox"/>
+        {% endif %}
+            {% if task.priority == task.PRIORITY_HIGH %}
+            <span class="badge badge-pill badge-danger">&nbsp;</span>
+            {% elif task.priority == task.PRIORITY_MEDIUM %}
+            <span class="badge badge-pill badge-secondary">&nbsp;</span>
+            {% elif task.priority == task.PRIORITY_LOW %}
+            <span class="badge badge-pill badge-success">&nbsp;</span>
+            {% endif %}
             <a href={% url "tasks:detail" task.id %}> {{ task.task_title }}</a> <br>
             <b>{{ task.owner }} </b> <br>
             {{ task.task_text }} <br>
             {{ task.created }} <br>
             {{ task.updated }} <br>
+            <a class="remove" href="{% url 'tasks:delete' task.id %}">Удалить</a>
+            <hr/>
         </li>
-        {% endfor %}
+    {% endfor %}
 
     </ul>
 {% endblock %}

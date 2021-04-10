@@ -8,8 +8,8 @@
             Создать задачу
         </h1>
         <form action="." method="post" class="tasks-create">
-            {{ form }}
+            {{ form.as_p }}
             {% csrf_token %}
-            <button class="add" type="submit"> Добавить </button>
+            <p><button class="add" type="submit"> Добавить </button></p>
         </form>
 {% endblock %}
